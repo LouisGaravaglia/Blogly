@@ -1,0 +1,31 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} HOME {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+    <img class="user_img" src="{{user.img_url}}" alt="Photo of {{user.first_name}} {{user.last_name}}">
+    <p class="user_name">{{user.first_name}} {{user.last_name}}</p>
+    <a href="/{{user.id}}/edit" class="btn btn-outline-success">Edit</a>
+    <a href="/{{user.id}}/delete" class="btn btn-outline-success">Delete</a>
+    
+
+
+
+
+
+</section>
+
+
+{% endblock %}

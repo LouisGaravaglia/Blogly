@@ -1,0 +1,52 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} CREATE USER {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+<h3 class="users_title">EDIT PAGE</h3>
+
+
+<form action="/{{user.id}}/edit", method="POST">
+  <div class="form-group w-50">
+    <label for="first_name">FIRST NAME:</label>
+    <input type="text" placeholder="Enter First Name" class="form-control" id="first_name" name="first_name" aria-describedby="emailHelp">
+  </div>
+
+   <div class="form-group w-50">
+    <label for="last_name">LAST NAME:</label>
+    <input type="text" placeholder="Enter Last Name" class="form-control" id="last_name" name="last_name" aria-describedby="emailHelp">
+  </div>
+
+    <div class="form-group w-50">
+    <label for="img_url">IMAGE URL:</label>
+    <input type="text" placeholder="Enter Image Url" class="form-control" id="img_url" name="img_url" aria-describedby="emailHelp">
+  </div>
+  
+
+  
+    <a href="/" class="btn btn-outline-info">Cancel</a>
+    <button type="submit" class="btn btn-outline-success">Save</button>
+  
+
+</form>
+
+
+
+
+
+</section>
+
+
+{% endblock %}

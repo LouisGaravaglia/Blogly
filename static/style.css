@@ -11,6 +11,40 @@
     margin: 50px;
 }
 
-button {
-    margin-top: 25px;
+.navbar {
+
+ 
+}
+
+.user_img {
+    object-fit: cover;
+    width:230px;
+    height:230px;
+    float: left;
+    margin: 30px;
+}
+
+.user_name {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    padding-top: 20px;
+}
+
+#users {
+    margin: 30px;
+}
+
+.users_title{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    padding-top: 20px;
+}
+
+.users_item{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 20px;
 }

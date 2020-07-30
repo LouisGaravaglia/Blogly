@@ -6,57 +6,46 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-def connect_db(app);    
+def connect_db(app):    
     db.app = app
     db.init_app(app)
 
 
-First, create a User model for SQLAlchemy. Put this in a models.py file.
-
-It should have the following columns:
-
-    id, an autoincrementing integer number that is the primary key
-    first_name and last_name
-    image_url for profile images
-
-Make good choices about whether things should be required, have defaults, and so on.
 
 class User(db.Model):
     
     __tablename__ = "users"
     
-    @classmethod
-    def get_by_species(cls, species):
-        return cls.query.filter_by(species=species).all()
+    # @classmethod
+    # def get_by_species(cls, species):
+    #     return cls.query.filter_by(species=species).all()
     
-    @classmethod
-    def get_all_hungry(cls):
-        return cls.query.filter(Pet.hunger > 20).all()
+    # @classmethod
+    # def get_all_hungry(cls):
+    #     return cls.query.filter(Pet.hunger > 20).all()
         
     
     def __repr__(self):
-        p=self
-        return f"<Pet id={p.id} name={p.name} species={p.species} hunger={p.hunger}>"
+        u=self
+        return f"<User id={u.id} first_name={u.first_name} last_name={u.last_name} img_url={u.img_url}>"
     
     id = db.Column(db.Integer,
                    primary_key = True,
                    autoincrement = True)
     first_name = db.Column(db.String(50),
-                     nullable=False,
-                     unique=True)
-    last_name = db.Column(db.String(30))
-    img_url = db.Column(db.Integer,
-                       nullable=False,
-                       default=20)
+                     nullable=False)
+    last_name = db.Column(db.String(100))
+    img_url = db.Column(db.String(800),
+                       nullable=False)
     
-    def greet(self):
-        return f"Hi, my name is {self.name} and i'm a {self.species}!"
+    # def greet(self):
+    #     return f"Hi, my name is {self.name} and i'm a {self.species}!"
     
-    def feed(self, amt=20):
-        """Update hunger based off of amt"""
+    # def feed(self, amt=20):
+    #     """Update hunger based off of amt"""
         
-        self.hunger -= amt
-        self.hunger = max(self.hunger, 0)
+    #     self.hunger -= amt
+    #     self.hunger = max(self.hunger, 0)
     
     # to run this class use the following
     # ipython3
