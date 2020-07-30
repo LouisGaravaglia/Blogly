@@ -34,40 +34,5 @@ class UserModelTestCase(TestCase):
         db.session.commit()
         
         singer = User.query.filter_by(last_name='Ocean').first()
-        self.assertEquals(singer, [user])
+        self.assertIn(user.first_name, [user])
     
-    # def greet(self):
-    #     return f"Hi, my name is {self.name} and i'm a {self.species}!"
-    
-    # def feed(self, amt=20):
-    #     """Update hunger based off of amt"""
-        
-    #     self.hunger -= amt
-    #     self.hunger = max(self.hunger, 0)
-    
-    # to run this class use the following
-    # ipython3
-    # %run app.py
-    # db.create_all()
-    
-    # if you add or update the table and then want to update it,
-    # you need to go to the Postgres Shell and run DROP table_name,
-    # then re run db.create_all()
-    
-    # Then make sure you import the class name in your app.py file
-    
-    # To create a instance of this class, type this in ipython, do the follwoing:
-    # stevie = Pet(name="Stevie Chicks", species="Chicken", hunger=13)
-    
-    # then you can use, stevie.name, stevie.hunger, stevie.SMTPRecipientsRefused
-    
-    # then to sync all of the pets youve created once your done, do the following:
-    # db.session.add(stevie)
-    # db.session.commit()
-    
-    # to create a lot of instances at once, you can do the following using sip:
-    # names = ['Sushi', 'scout', 'piggie', 'carrot face']
-    # species = ['pig', 'cat', 'bunny', 'bunny']
-    # pets = [Pet(name=n, species=s) for n,s in zip(names, species)]
-    # db.session.add_all(pets) *add_all needs to be ZipFile The class for reading and writing ZIP files.  See section 
-    # db.session.commit()
