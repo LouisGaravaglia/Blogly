@@ -1,0 +1,16 @@
+.messages p {
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.messages .error {
+    background-color: rgba(254, 85, 85, 0.5);
+}
+
+#inputs {
+    margin: 50px;
+}
+
+button {
+    margin-top: 25px;
+}

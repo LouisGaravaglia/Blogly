@@ -1,0 +1,44 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} HOME {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="inputs">
+
+<form action="/response", method="POST">
+  <div class="form-group w-50">
+    <label for="converting-from">From:</label>
+    <input type="text" placeholder="Enter currency code. (for example: USD)" class="form-control" id="converting-from" name="converting-from" aria-describedby="emailHelp">
+  </div>
+
+   <div class="form-group w-50">
+    <label for="converting-to">To:</label>
+    <input type="text" placeholder="Enter currency code. (for example: EUR)" class="form-control" id="converting-to" name="converting-to" aria-describedby="emailHelp">
+  </div>
+
+    <div class="form-group w-50">
+    <label for="converting-amount">Amount:</label>
+    <input type="text" placeholder="Enter currency amount." class="form-control" id="converting-amount" name="amount" aria-describedby="emailHelp">
+  </div>
+  
+  <button type="submit" class="btn btn-outline-success">Convert</button>
+</form>
+
+
+
+
+
+</section>
+
+
+{% endblock %}
