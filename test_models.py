@@ -1,42 +1,40 @@
 
-from flask_sqlalchemy import SQLAlchemy
+from unittest import TestCase
+from app import app
+from models import db, User
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
+app.config['SQLALCHEMY_ECHO'] = False
 
 
 
-db = SQLAlchemy()
+db.drop_all()
+db.create_all()
 
 
-def connect_db(app):    
-    db.app = app
-    db.init_app(app)
-
-
-
-class User(db.Model):
+class UserModelTestCase(TestCase):
     
-    __tablename__ = "users"
-    
-    # @classmethod
-    # def get_by_species(cls, species):
-    #     return cls.query.filter_by(species=species).all()
-    
-    # @classmethod
-    # def get_all_hungry(cls):
-    #     return cls.query.filter(Pet.hunger > 20).all()
+    def setUp(self):
+        """Clean up any existing Users in the db."""
         
+        User.query.delete()
     
-    def __repr__(self):
-        u=self
-        return f"<User id={u.id} first_name={u.first_name} last_name={u.last_name} img_url={u.img_url}>"
-    
-    id = db.Column(db.Integer,
-                   primary_key = True,
-                   autoincrement = True)
-    first_name = db.Column(db.String(50),
-                     nullable=False)
-    last_name = db.Column(db.String(100))
-    img_url = db.Column(db.String(100),
-                       nullable=False)
+    def tearDown(self):
+        """Clean up any additions/changes made in the db."""
+        
+        db.session.rollback()
+        
+    def test_adding_user(self):
+        """Tests if adding user to db works."""
+        
+        user = User(first_name='Frank', last_name='Ocean', img_url='https://a.espncdn.com/photo/2015/1212/r35307_1296x729_16-9.jpg')
+
+        db.session.add(user)
+        db.session.commit()
+        
+        singer = User.query.filter_by(last_name='Ocean').first()
+        self.assertEquals(singer, [user])
     
     # def greet(self):
     #     return f"Hi, my name is {self.name} and i'm a {self.species}!"
