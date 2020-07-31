@@ -32,7 +32,7 @@ class User(db.Model):
                        nullable=False)
     posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
     
-    @classmethod
+    @property
     def full_name(self):
         """Return full name of user."""
         
@@ -59,14 +59,21 @@ class Post(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     
-    @classmethod
+    @property
     def friendly_date(self):
         """Return nicely-formatted date."""
         
-        return self.create_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
         
     
-
+    # def greet(self):
+    #     return f"Hi, my name is {self.name} and i'm a {self.species}!"
+    
+    # def feed(self, amt=20):
+    #     """Update hunger based off of amt"""
+        
+    #     self.hunger -= amt
+    #     self.hunger = max(self.hunger, 0)
     
     # to run this class use the following
     # ipython3

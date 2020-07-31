@@ -143,7 +143,7 @@ def create_post(user_id):
     return redirect(f"/{user.id}")
 
 @app.route('/posts/<int:post_id>')
-def create_post(post_id):
+def show_post(post_id):
     """Show the post when user clicks on the post title"""  
     
     

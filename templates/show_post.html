@@ -15,12 +15,13 @@
 
 <section id="users">
 
-<h3 class="users_title">ALL USERS</h3>
-<ul>
-  {% for user in users %}
-    <li class="users_item"><a href="/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
-  {% endfor %}
-</ul>
+<h3 class="users_title">{{post.title}}</h3>
+<p>{{post.content}}</p>
+<small>{{post.friendly_date}}</small>
+
+    <a href="/post/{{user.id}}/edit" class="btn btn-outline-success">Edit</a>
+    <a href="/post/{{user.id}}/delete" class="btn btn-outline-success">Delete</a>
+    <a href="/{{user.id}}" class="btn btn-outline-success">Cancel</a>
 
 
 
