@@ -1,5 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 
 
@@ -16,15 +17,7 @@ class User(db.Model):
     
     __tablename__ = "users"
     
-    # @classmethod
-    # def get_by_species(cls, species):
-    #     return cls.query.filter_by(species=species).all()
-    
-    # @classmethod
-    # def get_all_hungry(cls):
-    #     return cls.query.filter(Pet.hunger > 20).all()
-        
-    
+
     def __repr__(self):
         u=self
         return f"<User id={u.id} first_name={u.first_name} last_name={u.last_name} img_url={u.img_url}>"
@@ -37,15 +30,43 @@ class User(db.Model):
     last_name = db.Column(db.String(100))
     img_url = db.Column(db.String(100),
                        nullable=False)
+    posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
     
-    # def greet(self):
-    #     return f"Hi, my name is {self.name} and i'm a {self.species}!"
-    
-    # def feed(self, amt=20):
-    #     """Update hunger based off of amt"""
+    @classmethod
+    def full_name(self):
+        """Return full name of user."""
         
-    #     self.hunger -= amt
-    #     self.hunger = max(self.hunger, 0)
+        return f"{self.first_name}{self.last_name}"        
+    
+
+class Post(db.Model):
+    
+    __tablename__ = "posts"
+        
+    
+    def __repr__(self):
+        p=self
+        return f"<User id={p.id} title={p.title} content={p.content} created_at={p.created_at} owner_id={p.owner_id}>"
+    
+    id = db.Column(db.Integer,
+                   primary_key = True,
+                   autoincrement = True)
+    title = db.Column(db.String(50),
+                     nullable=False)
+    content = db.Column(db.String(1000),
+                     nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    
+    @classmethod
+    def friendly_date(self):
+        """Return nicely-formatted date."""
+        
+        return self.create_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+        
+    
+
     
     # to run this class use the following
     # ipython3

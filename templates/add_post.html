@@ -1,0 +1,44 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} CREATE POST {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+<h3 class="users_title">CREATE A POST</h3>
+
+
+<form action="/{{user.id}}/add_post", method="POST">
+  <div class="form-group w-50">
+    <label for="title">TITLE:</label>
+    <input type="text" placeholder="Add a Title." class="form-control" id="title" name="title" aria-describedby="addTitle">
+  </div>
+
+   <div class="form-group w-50">
+    <label for="content">CONTENT:</label>
+    <input type="text" placeholder="Add your Content" class="form-control" id="content" name="content" aria-describedby="addContent">
+  </div>
+
+
+  
+  <button type="submit" class="btn btn-outline-success">Submit</button>
+</form>
+
+
+
+
+
+</section>
+
+
+{% endblock %}

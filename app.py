@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, make_response, redir
 from random import choice, randint
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config["SECRET_KEY"] = "4534gdghjk5d#$RGR^HDG"
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False 
 # app.config["TESTING"] = True
-app.config["DEBUG_TB_HOSTS"] = ["dont-show-debug-toolbar"]
+# app.config["DEBUG_TB_HOSTS"] = ["dont-show-debug-toolbar"]
 
 connect_db(app)
 
@@ -35,8 +35,9 @@ def show_user(user_id):
     """shows details page about a single user"""  
     
     user = User.query.get_or_404(user_id)
+    posts = Post.query.filter(Pet.owner_id == user_id).all() 
 
-    return render_template("details.html", user=user)
+    return render_template("details.html", user=user, posts=posts)
 
 @app.route('/create_user')
 def create_user_page():
@@ -89,7 +90,7 @@ def edit_user(user_id):
 def delete_user(user_id):
     """delete a user from the database"""  
     
-    # User.query.get(user_id).delete()
+    
     User.query.filter_by(id=user_id).delete()
   
     db.session.commit()
@@ -97,27 +98,26 @@ def delete_user(user_id):
     return redirect("/")
 
 
-# @app.route('/')
-# def home_page():
-#     """shows home page"""  
-
-#     return render_template("index.html")
-
-# @app.route('/response', methods=["POST"])
-# def result_page():
-#     """shows currency exchange rate"""
+@app.route('/<int:user_id>/add_post')
+def add_post_page(user_id):
+    """shows the form to add a post"""  
     
-#     start_curr = request.form["converting-from"].upper()
-#     end_curr = request.form["converting-to"].upper()
-#     amount = request.form["amount"]
+    user = User.query.get_or_404(user_id)
 
-#     currency_method.checking_converting_from(start_curr)
+    return render_template("add_post.html", user=user)
+
+@app.route('/<int:user_id>/add_post', methods=["POST"])
+def create_post(user_id):
+    """use a form to create a user"""  
     
-#     end_symbol = currency_method.checking_converting_to(end_curr)
+    title = request.form["title"]
+    content = request.form["content"]
+    
+    user = User.query.get_or_404(user_id)
+   
+    
+    new_post = Post(title=title, content=content, owner_id=user.id)
+    db.session.add(new_post)
+    db.session.commit()
 
-#     currency_method.checking_amount_validity(amount)
-
-#     rounded = currency_method.checking_all(start_curr, end_curr, amount)       
-
-#     return render_template("response.html", rounded=rounded, end_symbol=end_symbol)
-
+    return redirect(f"/{user.id}")
