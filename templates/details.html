@@ -8,11 +8,6 @@
 {% block content %}
 
 
-
-
-
-
-
 <section id="users">
 
     <img class="user_img" src="{{user.img_url}}" alt="Photo of {{user.first_name}} {{user.last_name}}">
@@ -22,12 +17,13 @@
     <a href="/{{user.id}}/add_post" class="btn btn-outline-success">Add Post</a>
     
 
+    <h3 class="user_name">POSTS</h3>
+    <hr>
     <div class="user-posts">
-    <ul class="post_titles">
     {% for post in posts %}
-        <li><a href="/posts/{{ post.id }}" class="href">post.title</a></li>
+        <p><a href="/posts/{{ post.id }}" class="href">{{post.title}} | posted on: {{post.friendly_date}}</a></p>
     {% endfor %}
-    </ul>
+    
     </div>
 
 
