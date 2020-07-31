@@ -49,7 +49,7 @@ def show_users():
     users = User.query.order_by(User.last_name, User.first_name).all()
     # users = Post.query.filter(Post.owner_id == 1).all()
 
-    return render_template("details.html", users=users)
+    return render_template("users.html", users=users)
 
 
 # ===================================    CREATE USER    =====================================
@@ -116,7 +116,7 @@ def delete_user(user_id):
 
     return redirect("/")
 
-# ===================================    POST STORY    =====================================
+# ===================================    POSTS    =====================================
 
 @app.route('/<int:user_id>/add_post')
 def add_post_page(user_id):
@@ -141,3 +141,14 @@ def create_post(user_id):
     db.session.commit()
 
     return redirect(f"/{user.id}")
+
+@app.route('/posts/<int:post_id>')
+def create_post(post_id):
+    """Show the post when user clicks on the post title"""  
+    
+    
+    post = Post.query.get_or_404(post_id)
+   
+    
+
+    return render_template("show_post.html", post=post)
