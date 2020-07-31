@@ -77,7 +77,7 @@ def create_user():
 
     return redirect(f"/{new_user.id}")
 
-# ===================================    EDIT/DELETE    =====================================
+# ===================================    EDIT/DELETE USER    =====================================
 
 
 @app.route('/<int:user_id>/edit')
@@ -116,7 +116,7 @@ def delete_user(user_id):
 
     return redirect("/")
 
-# ===================================    POSTS    =====================================
+# ===================================    ADD POSTS    =====================================
 
 @app.route('/<int:user_id>/add_post')
 def add_post_page(user_id):
@@ -152,3 +152,41 @@ def show_post(post_id):
     
 
     return render_template("show_post.html", post=post)
+
+
+# ===================================    EDIT/DELETE POSTS    =====================================
+
+
+
+@app.route('/posts/<int:post_id>/edit_post')
+def show_edit_post_page(post_id):
+    """shows the form to edit an existing post"""  
+    
+    post = User.query.get_or_404(post_id)
+
+    return render_template("edit_post.html", post=post)
+
+@app.route('/posts/<int:post_id>/edit_post', methods=["POST"])
+def edit_user_post(post_id):
+    """use a form to update and edit a post""" 
+
+    post = Post.query.get_or_404(post_id)
+    post.title = request.form["title"]
+    post.content = request.form["content"]
+   
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/<int:post_id>")
+
+
+@app.route('/posts/<int:user_id>/delete_post')
+def delete_user_post(user_id):
+    """delete a user from the database"""  
+    
+    
+    User.query.filter_by(id=user_id).delete()
+  
+    db.session.commit()
+
+    return redirect("/")

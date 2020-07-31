@@ -1,0 +1,44 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} EDIT POST {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+<h3 class="users_title">EDIT A POST</h3>
+
+
+<form action="/posts/{{post.id}}/edit_post", method="POST">
+  <div class="form-group w-50">
+    <label for="title">TITLE:</label>
+    <input type="text" placeholder="Edit your Title." class="form-control" id="title" name="title" aria-describedby="addTitle">
+  </div>
+
+   <div class="form-group w-50">
+    <label for="content">CONTENT:</label>
+    <input type="text" placeholder="Edit your Content" class="form-control" id="content" name="content" aria-describedby="addContent">
+  </div>
+
+
+  
+  <button type="submit" class="btn btn-outline-success">Submit</button>
+</form>
+
+
+
+
+
+</section>
+
+
+{% endblock %}
