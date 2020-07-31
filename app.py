@@ -171,21 +171,27 @@ def edit_user_post(post_id):
     """use a form to update and edit a post""" 
 
     post = Post.query.get_or_404(post_id)
-    post.title = request.form["title"]
-    post.content = request.form["content"]
+
+    if request.form["title"] != "" and request.form["title"] !=  None:
+        post.title = request.form["title"]
+    
+            
+    if request.form["content"] != "" and request.form["content"] != None:
+        post.content = request.form["content"]
+    
    
     db.session.add(post)
     db.session.commit()
 
-    return redirect(f"/posts/<int:post_id>")
+    return redirect(f"/posts/{post_id}")
 
 
-@app.route('/posts/<int:user_id>/delete_post')
-def delete_user_post(user_id):
-    """delete a user from the database"""  
+@app.route('/posts/<int:post_id>/delete_post')
+def delete_user_post(post_id):
+    """delete a post from the database"""  
     
     
-    User.query.filter_by(id=user_id).delete()
+    Post.query.filter_by(id=post_id).delete()
   
     db.session.commit()
 
