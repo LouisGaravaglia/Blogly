@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, session, make_response, redir
 from random import choice, randint
 from unittest import TestCase
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
