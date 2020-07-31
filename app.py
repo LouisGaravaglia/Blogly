@@ -18,16 +18,19 @@ connect_db(app)
 debug = DebugToolbarExtension(app)
 
 
+# ===================================    HOME    =====================================
 
 
 @app.route('/')
 def home_page():
     """shows lists of all users in db"""  
     
-    users = User.query.all()
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
 
-    return render_template("index.html", users=users)
+    return render_template("index.html", posts=posts)
 
+
+# ===================================    USER PAGE / USERS    =====================================
 
 
 @app.route('/<int:user_id>')
@@ -35,9 +38,22 @@ def show_user(user_id):
     """shows details page about a single user"""  
     
     user = User.query.get_or_404(user_id)
-    posts = Post.query.filter(Pet.owner_id == user_id).all() 
+    posts = Post.query.filter(Post.owner_id == user_id).all() 
 
     return render_template("details.html", user=user, posts=posts)
+
+@app.route('/users')
+def show_users():
+    """shows list of all users"""  
+    
+    users = User.query.order_by(User.last_name, User.first_name).all()
+    # users = Post.query.filter(Post.owner_id == 1).all()
+
+    return render_template("details.html", users=users)
+
+
+# ===================================    CREATE USER    =====================================
+
 
 @app.route('/create_user')
 def create_user_page():
@@ -61,6 +77,9 @@ def create_user():
 
     return redirect(f"/{new_user.id}")
 
+# ===================================    EDIT/DELETE    =====================================
+
+
 @app.route('/<int:user_id>/edit')
 def edit_user_page(user_id):
     """shows the form to edit an existing user"""  
@@ -79,7 +98,7 @@ def edit_user(user_id):
     user.img_url = request.form["img_url"]
    
     
-    # new_user = User(first_name=first_name, last_name=last_name, img_url=img_url)
+    
     db.session.add(user)
     db.session.commit()
 
@@ -97,6 +116,7 @@ def delete_user(user_id):
 
     return redirect("/")
 
+# ===================================    POST STORY    =====================================
 
 @app.route('/<int:user_id>/add_post')
 def add_post_page(user_id):

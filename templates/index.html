@@ -15,12 +15,18 @@
 
 <section id="users">
 
-<h3 class="users_title">ALL USERS</h3>
-<ul>
-  {% for user in users %}
-    <li class="users_item"><a href="/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
-  {% endfor %}
-</ul>
+<h3 class="users_title">LATEST POSTS</h3>
+
+
+{% for post in posts %}
+<h2 class="mt-4">
+  <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+</h2>
+<p>{{ post.content }}</p>
+<p>
+  <small>By {{ post.user.full_name }} on {{ post.friendly_date }}</small>
+</p>
+{% endfor %}
 
 
 
