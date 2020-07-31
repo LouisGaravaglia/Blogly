@@ -123,22 +123,26 @@ def add_post_page(user_id):
     """shows the form to add a post"""  
     
     user = User.query.get_or_404(user_id)
+    tags = Tag.query.all()
 
-    return render_template("add_post.html", user=user)
+    return render_template("add_post.html", user=user, tags=tags)
 
 @app.route('/<int:user_id>/add_post', methods=["POST"])
 def create_post(user_id):
     """use a form to create a user"""  
     
-    title = request.form["title"]
-    content = request.form["content"]
-    
     user = User.query.get_or_404(user_id)
-   
-    
-    new_post = Post(title=title, content=content, owner_id=user.id)
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
+    new_post = Post(title=request.form['title'],
+                    content=request.form['content'],
+                    user=user,
+                    tags=tags)
+
     db.session.add(new_post)
     db.session.commit()
+   
 
     return redirect(f"/{user.id}")
 
@@ -196,3 +200,29 @@ def delete_user_post(post_id):
     db.session.commit()
 
     return redirect("/")
+
+# ===================================    CREATE TAGS    =====================================
+
+@app.route('/create_tag')
+def show_create_tag_page():
+    """shows the form to create a tag to then add to posts."""  
+    
+    tags = Tag.query.all()
+
+    return render_template("create_tag.html", tags=tags)
+
+@app.route('/create_tag', methods=["POST"])
+def create_tag_post():
+    """use a form to create a tag and update the tag db."""  
+    
+    
+    tag_name = request.form['tag_name']
+    
+
+    new_tag = Tag(name=tag_name)
+
+    db.session.add(new_tag)
+    db.session.commit()
+   
+
+    return redirect("/create_tag")

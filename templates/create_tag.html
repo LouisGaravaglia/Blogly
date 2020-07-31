@@ -1,0 +1,45 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} CREATE USER {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+<h3 class="users_title">CREATE A TAG</h3>
+<hr>
+
+<form action="/create_tag", method="POST">
+
+  <div class="form-group w-50">
+    <label for="tag_name">ADD TAG NAME:</label>
+    <input type="text" placeholder="Add a Tag Name" class="form-control" id="tag_name" name="tag_name" aria-describedby="tag_name">
+  </div>
+  
+  <button type="submit" class="btn btn-outline-success">Save</button>
+</form>
+
+<div class="show-tags">
+<h3>EXISTING TAGS</h3>
+<hr>
+{% for tag in tags %}
+<p class="tag">{{tag.name}}</p>
+{% endfor %}
+</div>
+
+
+
+
+</section>
+
+
+{% endblock %}
