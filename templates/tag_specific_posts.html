@@ -1,0 +1,38 @@
+
+
+{% extends "base.html" %}
+
+{% block title %} HOME {% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<section id="users">
+
+<h3 class="users_title">POSTS TAGGED WITH <span style="background-color: #FFFF00">{{tag.name}}.</span></h3>
+
+
+{% for post in tag.posts %}
+<h2 class="mt-4 home-post-title">
+  <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+</h2>
+<p>{{ post.content }}</p>
+<p>
+  <small>By {{ post.user.full_name }} on {{ post.friendly_date }}</small>
+</p>
+{% endfor %}
+
+
+
+
+
+</section>
+
+
+{% endblock %}

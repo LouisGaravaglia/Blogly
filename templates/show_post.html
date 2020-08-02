@@ -22,7 +22,7 @@
 <h5>Tags</h5>
 <hr>
 {% for tag in post.tags %}
-<p>{{tag.name}}</p>
+<p><a href="/tags/{{ tag.id }}" class="href">{{tag.name}}</a></p>
 {% endfor %}
 <br>
 <hr>

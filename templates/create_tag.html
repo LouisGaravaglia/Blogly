@@ -14,6 +14,13 @@
 
 
 <section id="users">
+<div class="show-tags">
+<h3>EXISTING TAGS</h3>
+<hr>
+{% for tag in tags %}
+<p class="tag">{{tag.name}}</p>
+{% endfor %}
+</div>
 
 <h3 class="users_title">CREATE A TAG</h3>
 <hr>
@@ -28,13 +35,7 @@
   <button type="submit" class="btn btn-outline-success">Save</button>
 </form>
 
-<div class="show-tags">
-<h3>EXISTING TAGS</h3>
-<hr>
-{% for tag in tags %}
-<p class="tag">{{tag.name}}</p>
-{% endfor %}
-</div>
+
 
 
 

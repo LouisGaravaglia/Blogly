@@ -220,3 +220,17 @@ def create_tag_post():
    
 
     return redirect("/create_tag")
+
+# ===================================    SHOW POSTS BY TAG    =====================================
+
+@app.route('/tags/<int:tag_id>')
+def show_posts_by_tag_id(tag_id):
+    """shows all posts related to a particular tag"""  
+    
+
+    
+    tag = Tag.query.get_or_404(tag_id)
+ 
+    
+
+    return render_template("tag_specific_posts.html", tag=tag)
