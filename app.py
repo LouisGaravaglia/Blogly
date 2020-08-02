@@ -70,7 +70,6 @@ def create_user():
     last_name = request.form["last_name"]
     img_url = request.form["img_url"]
    
-    
     new_user = User(first_name=first_name, last_name=last_name, img_url=img_url)
     db.session.add(new_user)
     db.session.commit()
@@ -97,8 +96,6 @@ def edit_user(user_id):
     user.last_name = request.form["last_name"]
     user.img_url = request.form["img_url"]
    
-    
-    
     db.session.add(user)
     db.session.commit()
 
@@ -142,26 +139,19 @@ def create_post(user_id):
 
     db.session.add(new_post)
     db.session.commit()
-   
 
     return redirect(f"/{user.id}")
 
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     """Show the post when user clicks on the post title"""  
-    
-    
+      
     post = Post.query.get_or_404(post_id)
-    # tags_ids = PostTag.query.filter_by(post_id=post_id).all()
-    # tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
-   
-    
 
     return render_template("show_post.html", post=post)
 
 
 # ===================================    EDIT/DELETE POSTS    =====================================
-
 
 
 @app.route('/posts/<int:post_id>/edit_post')
@@ -170,9 +160,6 @@ def show_edit_post_page(post_id):
     
     post = Post.query.get_or_404(post_id)
     tags = Tag.query.all()
-    
-    
-    
 
     return render_template("edit_post.html", post=post, tags=tags)
 
