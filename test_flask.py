@@ -45,15 +45,15 @@ class UserViewsTestCase(TestCase):
         db.session.rollback()
         
         
-    # def test_list_users(self):
-    #     """ Making sure that the home page renders a list of users in db. """
+    def test_home_page(self):
+        """ Making sure that the home page renders a list of posts. """
 
-    #     with self.client as client:
-    #         res = self.client.get("/")
-    #         html = res.get_data(as_text=True)
+        with self.client as client:
+            res = self.client.get("/")
+            html = res.get_data(as_text=True)
 
-    #         self.assertEqual(res.status_code, 200)
-    #         self.assertIn('Frank Ocean', html) 
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<a href="/posts/2">My home in como.</a>', html) 
             
     def test_user_page(self):
         """ Making sure that the user page renders correct html. """
