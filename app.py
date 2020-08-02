@@ -152,6 +152,8 @@ def show_post(post_id):
     
     
     post = Post.query.get_or_404(post_id)
+    # tags_ids = PostTag.query.filter_by(post_id=post_id).all()
+    # tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
    
     
 
@@ -166,9 +168,11 @@ def show_post(post_id):
 def show_edit_post_page(post_id):
     """shows the form to edit an existing post"""  
     
-    post = User.query.get_or_404(post_id)
+    post = Post.query.get_or_404(post_id)
+    tags = Tag.query.all()
+    
 
-    return render_template("edit_post.html", post=post)
+    return render_template("edit_post.html", post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit_post', methods=["POST"])
 def edit_user_post(post_id):

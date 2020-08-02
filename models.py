@@ -11,7 +11,7 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
-
+# ===========================================================   "users"   =========================================================== 
 
 class User(db.Model):
     
@@ -38,6 +38,7 @@ class User(db.Model):
         
         return f"{self.first_name}{self.last_name}"        
     
+# ===========================================================   "posts"   =========================================================== 
 
 class Post(db.Model):
     
@@ -65,6 +66,7 @@ class Post(db.Model):
         
         return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
         
+# ===========================================================   "posts_tags"   =========================================================== 
     
 class PostTag(db.Model):
     """Tag on a post."""
@@ -74,6 +76,7 @@ class PostTag(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
 
+# ===========================================================   "tags"   =========================================================== 
 
 class Tag(db.Model):
     """Tag that can be added to posts."""
