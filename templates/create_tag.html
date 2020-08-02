@@ -14,13 +14,7 @@
 
 
 <section id="users">
-<div class="show-tags">
-<h3>EXISTING TAGS</h3>
-<hr>
-{% for tag in tags %}
-<p><a href="/tags/{{ tag.id }}" class="href">{{tag.name}}</a></p>
-{% endfor %}
-</div>
+
 
 <h3 class="users_title">CREATE A TAG</h3>
 <hr>
@@ -34,7 +28,15 @@
   
   <button type="submit" class="btn btn-outline-success">Save</button>
 </form>
+<br>
 
+<div class="show-tags">
+<h3>SEARCH POSTS BY EXISTING TAGS</h3>
+<hr>
+{% for tag in tags %}
+<p><a href="/tags/{{ tag.id }}" class="href">{{tag.name}}</a></p>
+{% endfor %}
+</div>
 
 
 
