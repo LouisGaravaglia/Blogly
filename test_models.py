@@ -19,20 +19,37 @@ class UserModelTestCase(TestCase):
         """Clean up any existing Users in the db."""
         
         User.query.delete()
+        Post.query.delete()
     
     def tearDown(self):
         """Clean up any additions/changes made in the db."""
         
         db.session.rollback()
         
-    def test_adding_user(self):
-        """Tests if adding user to db works."""
+    def test_full_name(self):
+        """Tests if calling full_name method works."""
         
         user = User(first_name='Frank', last_name='Ocean', img_url='https://a.espncdn.com/photo/2015/1212/r35307_1296x729_16-9.jpg')
 
         db.session.add(user)
         db.session.commit()
         
-        singer = User.query.filter_by(last_name='Ocean').first()
-        self.assertIn(user.first_name, [user])
+        singer = user.full_name
+        self.assertEqual('FrankOcean', singer)
     
+
+    def test_friendly_date(self):
+        """Tests if calling friend_date method works"""
+        
+        user = User(first_name='Frank', last_name='Ocean', img_url='https://a.espncdn.com/photo/2015/1212/r35307_1296x729_16-9.jpg')
+
+        db.session.add(user)
+        db.session.commit()
+        
+        post = Post(title='My home in como.', content='Its pretty dope.', user=user)
+
+        db.session.add(post)
+        db.session.commit()
+        
+        singer = user.full_name
+        self.assertEqual('FrankOcean', singer)

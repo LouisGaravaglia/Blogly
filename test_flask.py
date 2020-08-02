@@ -41,7 +41,7 @@ class UserViewsTestCase(TestCase):
     
     def tearDown(self):
         """Clean up any additions/changes made in the db."""
-        
+  
         db.session.rollback()
         
         
