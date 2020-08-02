@@ -185,30 +185,14 @@ def edit_user_post(post_id):
     if request.form["title"] != "" and request.form["title"] !=  None:
         post.title = request.form["title"]
     
-            
     if request.form["content"] != "" and request.form["content"] != None:
         post.content = request.form["content"]
-    
    
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+    
     db.session.add(post)
     db.session.commit()
-    
-    # ////////////////////// TOD0: NEED TO ADD THE UNCHECKING OF TAGS
-    
-        tag_ids = [int(num) for num in request.form.getlist("tags")]
-    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
-
-    new_post = Post(title=request.form['title'],
-                    content=request.form['content'],
-                    user=user,
-                    tags=tags)
-
-    db.session.add(new_post)
-    db.session.commit()
-    
-# ////////////////////// TOD0: NEED TO ADD THE UNCHECKING OF TAGS ABOVE
-
-    
 
     return redirect(f"/posts/{post_id}")
 

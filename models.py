@@ -32,6 +32,7 @@ class User(db.Model):
                        nullable=False)
     posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
     
+    
     @property
     def full_name(self):
         """Return full name of user."""
@@ -58,6 +59,7 @@ class Post(db.Model):
                      nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    
 
     
     @property
