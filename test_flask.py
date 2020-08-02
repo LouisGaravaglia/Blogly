@@ -53,7 +53,7 @@ class UserViewsTestCase(TestCase):
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
-            self.assertIn('<a href="/posts/2">My home in como.</a>', html) 
+            self.assertIn('<a href="/posts/1">My home in como.</a>', html) 
             
     def test_user_page(self):
         """ Making sure that the user page renders correct html. """
@@ -77,3 +77,25 @@ class UserViewsTestCase(TestCase):
 
             self.assertEqual(res.status_code, 200)
             self.assertIn('Barbara Walters', html)   
+            
+            
+    def test_users_page(self):
+        """ Making sure that the user's post page renders correctly with post and tags. """
+
+        with self.client as client:
+            res = self.client.get(f"/users")
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn('<li class="users_item"><a href="/1">Frank Ocean</a></li>', html)
+            
+            
+    def test_post_page(self):
+        """ Making sure that the user's post page renders correctly with post and tags. """
+
+        with self.client as client:
+            res = self.client.get(f"/posts/1")
+            html = res.get_data(as_text=True)
+
+            self.assertEqual(res.status_code, 200)
+            # self.assertIn('<li class="users_item"><a href="/5">Frank Ocean</a></li>', html)              
