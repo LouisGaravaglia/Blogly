@@ -171,6 +171,8 @@ def show_edit_post_page(post_id):
     post = Post.query.get_or_404(post_id)
     tags = Tag.query.all()
     
+    
+    
 
     return render_template("edit_post.html", post=post, tags=tags)
 
@@ -190,6 +192,23 @@ def edit_user_post(post_id):
    
     db.session.add(post)
     db.session.commit()
+    
+    # ////////////////////// TOD0: NEED TO ADD THE UNCHECKING OF TAGS
+    
+        tag_ids = [int(num) for num in request.form.getlist("tags")]
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
+    new_post = Post(title=request.form['title'],
+                    content=request.form['content'],
+                    user=user,
+                    tags=tags)
+
+    db.session.add(new_post)
+    db.session.commit()
+    
+# ////////////////////// TOD0: NEED TO ADD THE UNCHECKING OF TAGS ABOVE
+
+    
 
     return redirect(f"/posts/{post_id}")
 
