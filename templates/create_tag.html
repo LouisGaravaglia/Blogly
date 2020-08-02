@@ -18,7 +18,7 @@
 <h3>EXISTING TAGS</h3>
 <hr>
 {% for tag in tags %}
-<p class="tag">{{tag.name}}</p>
+<p><a href="/tags/{{ tag.id }}" class="href">{{tag.name}}</a></p>
 {% endfor %}
 </div>
 
