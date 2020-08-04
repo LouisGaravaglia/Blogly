@@ -35,8 +35,8 @@ class UserViewsTestCase(TestCase):
         db.session.add(post)
         db.session.commit()
         
-        self.user_id = user.id
-        self.post_id = post.id
+        self.user_id = 6
+        self.post_id = 5
         self.client = app.test_client()
     
     def tearDown(self):
@@ -53,7 +53,7 @@ class UserViewsTestCase(TestCase):
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
-            self.assertIn('<a href="/posts/1">My home in como.</a>', html) 
+            self.assertIn(f'<a href="/posts/{self.post_id}">My home in como.</a>', html) 
             
     def test_user_page(self):
         """ Making sure that the user page renders correct html. """
@@ -87,14 +87,14 @@ class UserViewsTestCase(TestCase):
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
-            self.assertIn('<li class="users_item"><a href="/1">Frank Ocean</a></li>', html)
+            self.assertIn(f'<li class="users_item"><a href="/{self.user_id}">Frank Ocean</a></li>', html)
             
             
     def test_post_page(self):
         """ Making sure that the user's post page renders correctly with post and tags. """
 
         with self.client as client:
-            res = self.client.get(f"/posts/1")
+            res = self.client.get(f"/posts/{self.post_id}")
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)
