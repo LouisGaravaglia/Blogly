@@ -57,8 +57,7 @@ def show_users():
 
 @app.route('/create_user')
 def create_user_page():
-    """shows the form to input info and create a user"""  
-    
+    """shows the form to input info and create a user"""    
 
     return render_template("create_user.html")
 
@@ -187,10 +186,7 @@ def edit_user_post(post_id):
 @app.route('/posts/<int:post_id>/delete_post')
 def delete_user_post(post_id):
     """delete a post from the database"""  
-    
-    
 
-    
     post = Post.query.get_or_404(post_id)
 
     db.session.delete(post)
@@ -212,16 +208,13 @@ def show_create_tag_page():
 def create_tag_post():
     """use a form to create a tag and update the tag db."""  
     
-    
     tag_name = request.form['tag_name']
     
-
     new_tag = Tag(name=tag_name)
 
     db.session.add(new_tag)
     db.session.commit()
    
-
     return redirect("/create_tag")
 
 # ===================================    SHOW POSTS BY TAG    =====================================
@@ -230,10 +223,6 @@ def create_tag_post():
 def show_posts_by_tag_id(tag_id):
     """shows all posts related to a particular tag"""  
     
-
-    
     tag = Tag.query.get_or_404(tag_id)
  
-    
-
     return render_template("tag_specific_posts.html", tag=tag)
