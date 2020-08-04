@@ -94,7 +94,7 @@ class UserViewsTestCase(TestCase):
         """ Making sure that the user's post page renders correctly with post and tags. """
 
         with self.client as client:
-            res = self.client.get(f"/posts/{self.post_id}")
+            res = self.client.get("/posts/{self.post_id}")
             html = res.get_data(as_text=True)
 
             self.assertEqual(res.status_code, 200)

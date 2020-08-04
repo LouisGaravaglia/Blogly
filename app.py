@@ -102,13 +102,13 @@ def edit_user(user_id):
     return redirect(f"/{user.id}")
 
 
-@app.route('/<int:user_id>/delete')
-def delete_user(user_id):
+@app.route('/<int:post_id>/delete')
+def delete_user(post_id):
     """delete a user from the database"""  
     
-    
-    User.query.filter_by(id=user_id).delete()
-  
+    post = Post.query.get_or_404(post_id)
+
+    db.session.delete(post)
     db.session.commit()
 
     return redirect("/")
@@ -189,8 +189,11 @@ def delete_user_post(post_id):
     """delete a post from the database"""  
     
     
-    Post.query.filter_by(id=post_id).delete()
-  
+
+    
+    post = Post.query.get_or_404(post_id)
+
+    db.session.delete(post)
     db.session.commit()
 
     return redirect("/")
